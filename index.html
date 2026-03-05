@@ -1926,9 +1926,20 @@
     });
     if (!filled) return;
 
+    // Validate email format
+    const emailInput = form.querySelector('[name="email"]');
+    const emailVal = emailInput.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+      emailInput.style.borderColor = '#c4956a';
+      status.className = 'form-status error';
+      status.textContent = 'Please enter a valid email address.';
+      status.style.display = 'block';
+      return;
+    }
+
     // Collect form data
     const name = form.querySelector('[name="name"]').value.trim();
-    const email = form.querySelector('[name="email"]').value.trim();
+    const email = emailVal;
     const regarding = form.querySelector('[name="regarding"]').value || 'General';
     const message = form.querySelector('[name="message"]').value.trim();
 
