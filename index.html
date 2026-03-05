@@ -806,6 +806,123 @@
     line-height: 1.6;
   }
 
+  /* ── Beer style explorer ── */
+  .style-explorer {
+    margin-top: 3rem;
+    padding: 2.5rem;
+    background: var(--card-bg);
+    border-radius: 8px;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 2px 20px var(--highlight-shadow);
+  }
+  .style-explorer h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--slate);
+    margin-bottom: 0.3rem;
+    transition: color 0.4s;
+  }
+  .style-explorer > p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-bottom: 1.8rem;
+  }
+  .style-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  .preset-btn {
+    padding: 0.35rem 0.85rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    background: var(--tag-bg);
+    color: var(--muted);
+    border: 1px solid var(--tag-border);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .preset-btn:hover {
+    color: var(--warm);
+    border-color: var(--warm);
+  }
+  .preset-btn.active {
+    background: var(--warm);
+    color: var(--paper);
+    border-color: var(--warm);
+  }
+  .sliders-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 2.5rem;
+  }
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .slider-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    min-width: 7.5rem;
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+    transition: color 0.4s;
+  }
+  .slider-row input[type="range"] {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--input-border);
+    outline: none;
+    transition: background 0.3s;
+  }
+  .slider-row input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--warm);
+    cursor: pointer;
+    border: 2px solid var(--paper);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    transition: transform 0.15s ease;
+  }
+  .slider-row input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--warm);
+    cursor: pointer;
+    border: 2px solid var(--paper);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+  .slider-row input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+  }
+  .slider-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--warm);
+    min-width: 1.5rem;
+    text-align: right;
+  }
+  @media (max-width: 768px) {
+    .sliders-grid {
+      grid-template-columns: 1fr;
+    }
+    .style-explorer {
+      padding: 1.5rem;
+    }
+  }
+
   /* ── Contact ── */
   .contact-inner {
     display: grid;
@@ -1330,6 +1447,83 @@
       </div>
     </div>
   </div>
+
+  <!-- Beer style explorer -->
+  <div class="style-explorer reveal">
+    <h3>Style explorer</h3>
+    <p>Click a style to see its flavour profile, or drag the sliders to design your own.</p>
+
+    <div class="style-presets" id="stylePresets">
+      <button class="preset-btn" data-style="blonde">Blond Ale</button>
+      <button class="preset-btn" data-style="pale">Pale Ale</button>
+      <button class="preset-btn" data-style="esb">ESB</button>
+      <button class="preset-btn" data-style="english-ipa">English IPA</button>
+      <button class="preset-btn" data-style="west-coast">West Coast IPA</button>
+      <button class="preset-btn" data-style="east-coast">East Coast IPA</button>
+      <button class="preset-btn" data-style="patersbier">Patersbier</button>
+      <button class="preset-btn" data-style="dubbel">Dubbel</button>
+      <button class="preset-btn" data-style="tripel">Tripel</button>
+      <button class="preset-btn" data-style="dark-strong">Dark Strong</button>
+      <button class="preset-btn" data-style="saison">Saison</button>
+      <button class="preset-btn" data-style="porter">Porter</button>
+      <button class="preset-btn" data-style="dry-stout">Dry Stout</button>
+      <button class="preset-btn" data-style="barleywine">Barley Wine</button>
+      <button class="preset-btn" data-style="imperial-stout">Imperial Stout</button>
+    </div>
+
+    <div class="sliders-grid" id="slidersGrid">
+      <div class="slider-row">
+        <span class="slider-label">abv</span>
+        <input type="range" min="0" max="10" step="1" value="0" data-dim="abv">
+        <span class="slider-val">0</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">roastiness</span>
+        <input type="range" min="0" max="10" step="1" value="0" data-dim="roast">
+        <span class="slider-val">0</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">maltiness</span>
+        <input type="range" min="0" max="10" step="1" value="0" data-dim="malt">
+        <span class="slider-val">0</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">caramel</span>
+        <input type="range" min="0" max="10" step="1" value="0" data-dim="caramel">
+        <span class="slider-val">0</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">sweetness</span>
+        <input type="range" min="0" max="10" step="1" value="0" data-dim="sweet">
+        <span class="slider-val">0</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">bitterness</span>
+        <input type="range" min="0" max="10" step="1" value="0" data-dim="bitter">
+        <span class="slider-val">0</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">spicy / floral hop</span>
+        <input type="range" min="0" max="10" step="1" value="0" data-dim="hopSpice">
+        <span class="slider-val">0</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">fruity / citrus hop</span>
+        <input type="range" min="0" max="10" step="1" value="0" data-dim="hopFruit">
+        <span class="slider-val">0</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">yeast fruit (esters)</span>
+        <input type="range" min="0" max="10" step="1" value="0" data-dim="esters">
+        <span class="slider-val">0</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">yeast spice (phenols)</span>
+        <input type="range" min="0" max="10" step="1" value="0" data-dim="phenols">
+        <span class="slider-val">0</span>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ── Contact ── -->
@@ -1415,6 +1609,60 @@
   // ── Mobile menu ──
   function toggleMenu() { document.getElementById('navMenu').classList.toggle('open'); }
   function closeMenu() { document.getElementById('navMenu').classList.remove('open'); }
+
+  // ── Beer style explorer ──
+  (function() {
+    // Style profiles: [abv, roast, malt, caramel, sweet, bitter, hopSpice, hopFruit, esters, phenols]
+    const styles = {
+      'blonde':        [4, 0, 2, 1, 2, 2, 1, 1, 1, 0],
+      'pale':          [5, 0, 3, 2, 2, 5, 3, 4, 2, 0],
+      'esb':           [5, 0, 5, 4, 3, 6, 4, 1, 3, 0],
+      'english-ipa':   [6, 0, 4, 3, 2, 7, 5, 2, 2, 0],
+      'west-coast':    [7, 0, 2, 1, 1, 8, 3, 8, 1, 0],
+      'east-coast':    [7, 0, 2, 1, 2, 5, 1, 8, 3, 0],
+      'patersbier':    [4, 0, 3, 1, 2, 3, 2, 1, 4, 4],
+      'dubbel':        [7, 1, 5, 5, 5, 3, 1, 0, 6, 3],
+      'tripel':        [9, 0, 3, 1, 3, 4, 3, 1, 6, 5],
+      'dark-strong':   [10, 2, 6, 6, 6, 4, 1, 0, 7, 4],
+      'saison':        [6, 0, 2, 0, 1, 4, 3, 2, 4, 6],
+      'porter':        [5, 5, 5, 4, 3, 4, 2, 0, 2, 0],
+      'dry-stout':     [4, 8, 3, 1, 1, 5, 2, 0, 1, 0],
+      'barleywine':    [10, 1, 7, 6, 6, 7, 4, 2, 4, 0],
+      'imperial-stout':[10, 9, 6, 5, 5, 6, 1, 0, 3, 0]
+    };
+
+    const dims = ['abv','roast','malt','caramel','sweet','bitter','hopSpice','hopFruit','esters','phenols'];
+    const sliders = {};
+    const vals = {};
+
+    dims.forEach(d => {
+      const input = document.querySelector('[data-dim="' + d + '"]');
+      sliders[d] = input;
+      vals[d] = input.nextElementSibling;
+      input.addEventListener('input', function() {
+        vals[d].textContent = this.value;
+        // Deactivate preset when user manually adjusts
+        document.querySelectorAll('.preset-btn.active').forEach(b => b.classList.remove('active'));
+      });
+    });
+
+    function setProfile(profile, btn) {
+      dims.forEach((d, i) => {
+        const target = profile[i];
+        sliders[d].value = target;
+        vals[d].textContent = target;
+      });
+      document.querySelectorAll('.preset-btn.active').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
+
+    document.getElementById('stylePresets').addEventListener('click', function(e) {
+      const btn = e.target.closest('.preset-btn');
+      if (!btn) return;
+      const style = btn.getAttribute('data-style');
+      if (styles[style]) setProfile(styles[style], btn);
+    });
+  })();
 
   // ── Contact form ──
   function handleSubmit() {
