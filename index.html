@@ -752,6 +752,133 @@
     opacity: 0.5;
   }
 
+  /* ── Recipe sheet (PDF-style preview) ── */
+  .recipe-sheet {
+    background: var(--chalk);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 1.6rem 1.5rem 1.3rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--slate);
+    line-height: 1.5;
+  }
+  .recipe-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .recipe-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+  .recipe-meta {
+    font-size: 0.6rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+  .recipe-colour-swatch {
+    width: 22px;
+    height: 30px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    border: 1px solid var(--card-border);
+  }
+  .recipe-rule {
+    border: none;
+    border-top: 1px solid var(--card-border);
+    margin: 0.8rem 0;
+  }
+
+  /* Stats bar */
+  .recipe-stats-bar {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--card-border);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 1.2rem;
+  }
+  .recipe-stat {
+    flex: 1;
+    text-align: center;
+    padding: 0.4rem 0.3rem;
+    border-right: 1px solid var(--card-border);
+  }
+  .recipe-stat:last-child { border-right: none; }
+  .recipe-stat-label {
+    display: block;
+    font-size: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 0.15rem;
+  }
+  .recipe-stat-value {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* Two-column layout */
+  .recipe-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+  @media (max-width: 480px) {
+    .recipe-columns { grid-template-columns: 1fr; }
+  }
+
+  /* Section titles */
+  .recipe-section-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin: 1rem 0 0.4rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .recipe-col .recipe-section-title:first-child {
+    margin-top: 0;
+  }
+
+  /* Tables */
+  .recipe-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.6rem;
+  }
+  .recipe-table th {
+    font-size: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--warm);
+    text-align: left;
+    padding: 0.2rem 0.3rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .recipe-table td {
+    padding: 0.2rem 0.3rem;
+    color: var(--slate);
+    white-space: nowrap;
+  }
+  .recipe-table td.right {
+    text-align: right;
+  }
+  .recipe-table tfoot td {
+    border-top: 1px solid var(--card-border);
+  }
+  .recipe-table--plain td:last-child {
+    text-align: right;
+  }
+
   /* ── Brewing section ── */
   .brewing-content {
     display: grid;
@@ -1392,28 +1519,95 @@
       <a href="https://proportion-brewing.vercel.app/" target="_blank" rel="noopener" class="btn btn-secondary" style="margin-top:1.5rem;">Try the app &rarr;</a>
     </div>
     <div class="showcase-visual">
-      <div class="mock-window">
-        <div class="mock-titlebar">
-          <div class="mock-dot"></div>
-          <div class="mock-dot"></div>
-          <div class="mock-dot"></div>
+      <div class="recipe-sheet">
+        <!-- Header -->
+        <div class="recipe-header">
+          <div>
+            <div class="recipe-name">Glowing Ember</div>
+            <div class="recipe-meta">English Strong Bitter &middot; 20L batch &middot; WLP002 English Ale &middot; Eff. 86%</div>
+          </div>
+          <div class="recipe-colour-swatch" style="background:#b87333;"></div>
         </div>
-        <div class="mock-body">
-          <div><span class="line-comment">// Proportion Brewing Assistant</span></div>
-          <div style="margin-top:0.5rem"><span class="line-label">style:</span> <span class="line-value">West Coast IPA</span></div>
-          <div><span class="line-label">batch:</span> <span class="line-value">23 L</span></div>
-          <div style="margin-top:0.8rem"><span class="line-comment">// grain bill</span></div>
-          <div><span class="line-value">5.2 kg Maris Otter</span></div>
-          <div><span class="line-value">0.4 kg Crystal 40</span></div>
-          <div><span class="line-value">0.2 kg Munich</span></div>
-          <div style="margin-top:0.8rem"><span class="line-comment">// water treatment</span></div>
-          <div><span class="line-label">Ca:</span> <span class="line-value">110</span> <span class="line-label">SO&#8324;:</span> <span class="line-value">275</span> <span class="line-label">Cl:</span> <span class="line-value">50</span></div>
-          <div><span class="line-label">SO&#8324;:Cl:</span> <span class="line-value">5.5</span> <span class="line-comment">(bitter-forward)</span></div>
-          <div><span class="line-label">mash pH:</span> <span class="line-value">5.38</span> <span class="line-comment">(predicted)</span></div>
-          <div style="margin-top:0.8rem"><span class="line-comment">// predicted outcome</span></div>
-          <div><span class="line-label">OG:</span> <span class="line-value">1.065</span> <span class="line-label">FG:</span> <span class="line-value">1.010</span></div>
-          <div><span class="line-label">ABV:</span> <span class="line-value">7.2%</span> <span class="line-label">IBU:</span> <span class="line-value">62</span></div>
-          <div><span class="line-label">efficiency:</span> <span class="line-value">74.2%</span></div>
+        <hr class="recipe-rule">
+
+        <!-- Stats bar -->
+        <div class="recipe-stats-bar">
+          <div class="recipe-stat"><span class="recipe-stat-label">OG</span><span class="recipe-stat-value">1.059</span></div>
+          <div class="recipe-stat"><span class="recipe-stat-label">FG</span><span class="recipe-stat-value">1.016</span></div>
+          <div class="recipe-stat"><span class="recipe-stat-label">ABV</span><span class="recipe-stat-value">5.6%</span></div>
+          <div class="recipe-stat"><span class="recipe-stat-label">IBU</span><span class="recipe-stat-value">49</span></div>
+          <div class="recipe-stat"><span class="recipe-stat-label">EBC</span><span class="recipe-stat-value">22</span></div>
+          <div class="recipe-stat"><span class="recipe-stat-label">Atten.</span><span class="recipe-stat-value">73%</span></div>
+        </div>
+
+        <!-- Two-column body -->
+        <div class="recipe-columns">
+          <!-- Left column -->
+          <div class="recipe-col">
+            <h4 class="recipe-section-title">Grain Bill</h4>
+            <table class="recipe-table">
+              <thead><tr><th>Grain</th><th>Weight</th><th>%</th><th>EBC</th></tr></thead>
+              <tbody>
+                <tr><td>Pale Malt</td><td>2.80 kg</td><td>62.2%</td><td>6</td></tr>
+                <tr><td>Mild Ale Malt</td><td>1.40 kg</td><td>31.1%</td><td>8</td></tr>
+                <tr><td>Dark Crystal</td><td>0.30 kg</td><td>6.7%</td><td>250</td></tr>
+              </tbody>
+              <tfoot><tr><td><strong>Total</strong></td><td><strong>4.50 kg</strong></td><td></td><td></td></tr></tfoot>
+            </table>
+
+            <h4 class="recipe-section-title">Mash Schedule</h4>
+            <table class="recipe-table">
+              <thead><tr><th>Step</th><th>Temp</th><th>Duration</th><th>pH</th></tr></thead>
+              <tbody>
+                <tr><td>Saccharification</td><td>60&deg;C</td><td>90 min</td><td>&asymp;auto</td></tr>
+                <tr><td>&mdash;</td><td>67&deg;C</td><td>30 min</td><td>&asymp;auto</td></tr>
+              </tbody>
+            </table>
+
+            <h4 class="recipe-section-title">Water Profile</h4>
+            <table class="recipe-table">
+              <thead><tr><th>Ion</th><th>Source</th><th>Final</th></tr></thead>
+              <tbody>
+                <tr><td>Ca&sup2;&#8314;</td><td>120 ppm</td><td>103 ppm</td></tr>
+                <tr><td>Mg&sup2;&#8314;</td><td>4 ppm</td><td>11 ppm</td></tr>
+                <tr><td>Na&#8314;</td><td>14 ppm</td><td>14 ppm</td></tr>
+                <tr><td>Cl&#8315;</td><td>31 ppm</td><td>72 ppm</td></tr>
+                <tr><td>SO&#8324;&sup2;&#8315;</td><td>51 ppm</td><td>170 ppm</td></tr>
+                <tr><td>HCO&#8323;&#8315;</td><td>280 ppm</td><td>0 ppm</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Right column -->
+          <div class="recipe-col">
+            <h4 class="recipe-section-title">Hop Schedule</h4>
+            <table class="recipe-table">
+              <thead><tr><th>Variety</th><th>Amount</th><th>AA</th><th>Time</th></tr></thead>
+              <tbody>
+                <tr><td>Northdown</td><td>30g</td><td>8.5%</td><td>60 min</td></tr>
+                <tr><td>East Kent Goldings</td><td>30g</td><td>5%</td><td>0 min</td></tr>
+                <tr><td>Northdown</td><td>20g</td><td>8.5%</td><td>60 min</td></tr>
+              </tbody>
+            </table>
+
+            <h4 class="recipe-section-title">Fermentation</h4>
+            <table class="recipe-table">
+              <thead><tr><th>Stage</th><th>Temp</th><th>Duration</th><th>Pressure</th></tr></thead>
+              <tbody>
+                <tr><td>Primary</td><td>20&deg;C</td><td>7 days</td><td>ambient</td></tr>
+                <tr><td>Cold crash</td><td>3&deg;C</td><td>2 days</td><td>ambient</td></tr>
+              </tbody>
+            </table>
+
+            <h4 class="recipe-section-title">Carbonation</h4>
+            <table class="recipe-table recipe-table--plain">
+              <tbody>
+                <tr><td>Target CO&#8322;</td><td class="right">2.4 vol</td></tr>
+                <tr><td>Residual CO&#8322;</td><td class="right">0.86 vol</td></tr>
+                <tr><td>Priming sugar (sucrose)</td><td class="right"><strong>114.6g</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
