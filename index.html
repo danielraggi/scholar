@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>proportion. — Mathematics & Computer Science</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ── Dark theme (default) ── */
+  :root, [data-theme="dark"] {
+    --ink: #e4e0d8;
+    --chalk: #1a1a2e;
+    --slate: #e8e4dc;
+    --warm: #d4a574;
+    --warm-light: #e8c9a8;
+    --accent: #8a9fd4;
+    --muted: #9a9aae;
+    --paper: #0f0f1a;
+    --grid: rgba(220,216,208,0.04);
+    --card-bg: rgba(255,255,255,0.04);
+    --card-border: rgba(255,255,255,0.06);
+    --card-shadow: rgba(0,0,0,0.3);
+    --nav-bg: rgba(15,15,26,0.88);
+    --nav-border: rgba(255,255,255,0.06);
+    --input-bg: rgba(255,255,255,0.06);
+    --input-border: rgba(255,255,255,0.1);
+    --course-bg: #1a1a2e;
+    --course-circle: rgba(255,255,255,0.04);
+    --course-text: rgba(228,224,216,0.65);
+    --course-topic-border: rgba(228,224,216,0.12);
+    --course-topic-text: rgba(228,224,216,0.5);
+    --hero-annotation: rgba(138,159,212,0.2);
+    --highlight-shadow: rgba(0,0,0,0.2);
+    --btn-secondary-border: rgba(228,224,216,0.2);
+    --mobile-menu-shadow: rgba(0,0,0,0.3);
+  }
+
+  /* ── Light theme ── */
+  [data-theme="light"] {
+    --ink: #1a1a2e;
+    --chalk: #f0ece2;
+    --slate: #2d2d44;
+    --warm: #c4956a;
+    --warm-light: #e8c9a8;
+    --accent: #6a7fc4;
+    --muted: #7a7a8e;
+    --paper: #eee9df;
+    --grid: rgba(45,45,68,0.06);
+    --card-bg: #e8e3d9;
+    --card-border: rgba(45,45,68,0.08);
+    --card-shadow: rgba(26,26,46,0.04);
+    --nav-bg: rgba(238,233,223,0.90);
+    --nav-border: rgba(45,45,68,0.08);
+    --input-bg: #e4dfd5;
+    --input-border: rgba(45,45,68,0.12);
+    --course-bg: #2d2d44;
+    --course-circle: rgba(240,236,226,0.05);
+    --course-text: rgba(240,236,226,0.7);
+    --course-topic-border: rgba(240,236,226,0.15);
+    --course-topic-text: rgba(240,236,226,0.6);
+    --hero-annotation: rgba(106,127,196,0.3);
+    --highlight-shadow: rgba(26,26,46,0.04);
+    --btn-secondary-border: rgba(45,45,68,0.2);
+    --mobile-menu-shadow: rgba(0,0,0,0.1);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    overflow-x: hidden;
+    transition: background 0.4s ease, color 0.4s ease;
+  }
+
+  /* ── Grid paper background ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+    transition: background-image 0.4s ease;
+  }
+
+  /* ── Theme switch ── */
+  .theme-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+    flex-shrink: 0;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .theme-switch-icon {
+    font-size: 0.95rem;
+    line-height: 1;
+    transition: opacity 0.3s, color 0.3s;
+  }
+
+  .sun-icon { color: var(--warm); }
+  .moon-icon { color: var(--accent); }
+
+  [data-theme="dark"] .sun-icon { opacity: 0.35; }
+  [data-theme="dark"] .moon-icon { opacity: 1; }
+  [data-theme="light"] .sun-icon { opacity: 1; }
+  [data-theme="light"] .moon-icon { opacity: 0.35; }
+
+  .theme-switch-track {
+    width: 40px;
+    height: 22px;
+    border-radius: 11px;
+    background: var(--card-border);
+    position: relative;
+    transition: background 0.3s ease;
+    border: 1px solid var(--input-border);
+  }
+
+  .theme-switch:hover .theme-switch-track {
+    border-color: var(--warm);
+  }
+
+  .theme-switch-thumb {
+    position: absolute;
+    top: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--warm);
+    transition: left 0.3s ease, background 0.3s ease;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+
+  [data-theme="dark"] .theme-switch-thumb { left: 20px; }
+  [data-theme="light"] .theme-switch-thumb { left: 2px; }
+
+  /* ── Navigation ── */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(12px);
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--nav-border);
+    transition: all 0.4s ease;
+  }
+
+  nav .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--slate);
+    letter-spacing: -0.02em;
+    transition: color 0.4s;
+  }
+
+  nav .logo span { color: var(--warm); }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  nav ul li a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--warm);
+    transition: width 0.3s ease;
+  }
+
+  nav ul li a:hover { color: var(--slate); }
+  nav ul li a:hover::after { width: 100%; }
+
+  /* ── Sections ── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 7rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 6rem;
+  }
+
+  .hero-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.08;
+    color: var(--slate);
+    letter-spacing: -0.03em;
+    max-width: 800px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+    transition: color 0.4s;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--warm);
+    font-weight: 600;
+  }
+
+  .hero-desc {
+    margin-top: 2rem;
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .hero-cta {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.9rem 2.2rem;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--warm);
+    color: var(--chalk);
+    border: 2px solid var(--warm);
+  }
+
+  .btn-primary:hover {
+    background: var(--warm-light);
+    border-color: var(--warm-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(196,149,106,0.25);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--slate);
+    border: 2px solid var(--btn-secondary-border);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--warm);
+    color: var(--warm);
+    transform: translateY(-2px);
+  }
+
+  /* ── Floating math symbols ── */
+  .math-symbols {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .math-sym {
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-style: italic;
+    opacity: 0;
+    animation: floatIn 1s ease forwards, drift 8s ease-in-out infinite alternate;
+    color: var(--accent);
+    transition: color 0.4s;
+  }
+
+  [data-theme="dark"] .math-sym { color: rgba(138,159,212,0.15); }
+  [data-theme="light"] .math-sym { color: rgba(106,127,196,0.18); }
+
+  .math-sym.warm {
+    color: var(--warm);
+  }
+  [data-theme="dark"] .math-sym.warm { color: rgba(212,165,116,0.12); }
+  [data-theme="light"] .math-sym.warm { color: rgba(196,149,106,0.15); }
+
+  .ms-1 { font-size: 5rem; top: 12%; right: 8%; animation-delay: 0.3s, 0.3s; }
+  .ms-2 { font-size: 3.5rem; top: 30%; right: 3%; animation-delay: 0.6s, 0.6s; }
+  .ms-3 { font-size: 7rem; bottom: 18%; right: 12%; animation-delay: 0.9s, 0.9s; }
+  .ms-4 { font-size: 4rem; bottom: 10%; right: 2%; animation-delay: 1.2s, 1.2s; }
+  .ms-5 { font-size: 3rem; top: 18%; right: 22%; animation-delay: 0.5s, 0.5s; }
+  .ms-6 { font-size: 6rem; bottom: 30%; right: 25%; animation-delay: 1.0s, 1.0s; }
+  .ms-7 { font-size: 2.5rem; top: 55%; right: 5%; animation-delay: 1.4s, 1.4s; }
+  .ms-8 { font-size: 4.5rem; top: 8%; right: 35%; animation-delay: 0.7s, 0.7s; }
+
+  @keyframes floatIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes drift {
+    0% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-12px) rotate(1.5deg); }
+    66% { transform: translateY(6px) rotate(-1deg); }
+    100% { transform: translateY(-8px) rotate(0.5deg); }
+  }
+
+  /* ── Section headings ── */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--slate);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    transition: color 0.4s;
+  }
+
+  /* ── About ── */
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+    font-size: 1.02rem;
+  }
+
+  .about-text p strong {
+    color: var(--slate);
+    font-weight: 600;
+    transition: color 0.4s;
+  }
+
+  .about-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .highlight-card {
+    padding: 1.8rem 2rem;
+    background: var(--card-bg);
+    border-radius: 6px;
+    border-left: 3px solid var(--warm);
+    box-shadow: 0 2px 20px var(--highlight-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.4s ease;
+  }
+
+  .highlight-card:hover {
+    transform: translateX(6px);
+    box-shadow: 0 4px 30px var(--card-shadow);
+  }
+
+  .highlight-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--slate);
+    margin-bottom: 0.4rem;
+    transition: color 0.4s;
+  }
+
+  .highlight-card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  /* ── Credentials ── */
+  .credentials {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .credential {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    flex: 1;
+    min-width: 220px;
+  }
+
+  .credential-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1rem;
+    transition: background 0.4s, border-color 0.4s;
+  }
+
+  .credential-text {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .credential-text strong {
+    display: block;
+    color: var(--slate);
+    font-weight: 600;
+    font-size: 0.92rem;
+    margin-bottom: 0.15rem;
+    transition: color 0.4s;
+  }
+
+  /* ── Subjects ── */
+  .subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.8rem;
+    margin-top: 2.5rem;
+  }
+
+  .subject-card {
+    padding: 2.5rem 2rem;
+    background: var(--card-bg);
+    border-radius: 6px;
+    box-shadow: 0 2px 20px var(--card-shadow);
+    border: 1px solid var(--card-border);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+  }
+
+  .subject-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--warm), var(--accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .subject-card:hover::before { transform: scaleX(1); }
+
+  .subject-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 40px var(--card-shadow);
+  }
+
+  .subject-icon {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: block;
+    color: var(--warm);
+  }
+
+  .subject-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--slate);
+    margin-bottom: 0.6rem;
+    transition: color 0.4s;
+  }
+
+  .subject-card p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .subject-levels {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .level-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    padding: 0.3rem 0.7rem;
+    background: var(--paper);
+    border: 1px solid var(--card-border);
+    border-radius: 3px;
+    color: var(--muted);
+    transition: background 0.4s, border-color 0.4s;
+  }
+
+  /* ── Courses ── */
+  .courses-container {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .course-card {
+    padding: 3rem;
+    background: var(--course-bg);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease, background 0.4s ease;
+    border: 1px solid var(--card-border);
+  }
+
+  .course-card:hover { transform: translateY(-4px); }
+
+  .course-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -30%;
+    width: 200px;
+    height: 200px;
+    border: 1px solid var(--course-circle);
+    border-radius: 50%;
+  }
+
+  .course-card::before {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    border: 1px solid var(--course-circle);
+    border-radius: 50%;
+  }
+
+  .course-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--warm);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .course-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+    color: var(--slate);
+  }
+
+  [data-theme="light"] .course-card h3 { color: #f0ece2; }
+  [data-theme="light"] .course-card { color: #f0ece2; }
+
+  .course-card p {
+    font-size: 0.92rem;
+    color: var(--course-text);
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  .course-topics {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .course-topic {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--course-topic-border);
+    border-radius: 3px;
+    color: var(--course-topic-text);
+  }
+
+  /* ── Contact ── */
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 2.5rem;
+  }
+
+  .contact-text p {
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    line-height: 1.8;
+  }
+
+  .contact-detail {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .contact-detail .icon {
+    width: 42px;
+    height: 42px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 12px var(--card-shadow);
+    flex-shrink: 0;
+    transition: background 0.4s, border-color 0.4s;
+  }
+
+  .contact-detail .info {
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+
+  .contact-detail .info strong {
+    display: block;
+    color: var(--slate);
+    font-weight: 600;
+    margin-bottom: 0.1rem;
+    transition: color 0.4s;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    padding: 1rem 1.2rem;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    color: var(--ink);
+    transition: border-color 0.3s, background 0.4s, color 0.4s;
+    outline: none;
+    resize: vertical;
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    border-color: var(--warm);
+  }
+
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder {
+    color: var(--muted);
+    opacity: 0.5;
+  }
+
+  .contact-form textarea { min-height: 140px; }
+  .contact-form .btn { border: none; text-align: center; }
+
+  /* ── Footer ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 3rem;
+    border-top: 1px solid var(--card-border);
+    transition: border-color 0.4s;
+  }
+
+  footer p {
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  /* ── Divider ── */
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--warm);
+    margin: 0 0 2rem 0;
+    opacity: 0.6;
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Mobile hamburger ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--slate);
+    transition: all 0.3s ease;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    section { padding: 5rem 1.5rem; }
+    .hamburger { display: flex; }
+
+    nav ul {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 70%;
+      max-width: 300px;
+      height: 100vh;
+      background: var(--paper);
+      flex-direction: column;
+      padding: 5rem 2rem;
+      gap: 2rem;
+      box-shadow: -4px 0 30px var(--mobile-menu-shadow);
+      transition: right 0.4s ease, background 0.4s ease;
+    }
+
+    nav ul.open { right: 0; }
+
+    .about-content,
+    .courses-container,
+    .contact-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .math-symbols { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 2.4rem; }
+    .subjects-grid { grid-template-columns: 1fr; }
+    .course-card { padding: 2rem; }
+    .credentials { flex-direction: column; gap: 1.2rem; }
+  }
+
+  /* ── Hidden pages ── */
+  .hidden-page {
+    display: none;
+    min-height: 100vh;
+    padding-top: 8rem;
+  }
+
+  .hidden-page.active { display: block; }
+  .main-content.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="logo">proportion<span>.</span></div>
+  <ul id="navMenu">
+    <li><a href="#about" onclick="closeMenu()">About</a></li>
+    <li><a href="#subjects" onclick="closeMenu()">Subjects</a></li>
+    <li><a href="#courses" onclick="closeMenu()">Courses</a></li>
+    <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="theme-switch" onclick="toggleTheme()" role="button" aria-label="Toggle light/dark mode" tabindex="0">
+      <span class="theme-switch-icon sun-icon">☀︎</span>
+      <span class="theme-switch-track">
+        <span class="theme-switch-thumb"></span>
+      </span>
+      <span class="theme-switch-icon moon-icon">☽</span>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══════════ MAIN SITE CONTENT ══════════ -->
+<div class="main-content" id="mainContent">
+
+  <!-- ── Hero ── -->
+  <section class="hero" id="hero">
+    <div class="math-symbols">
+      <span class="math-sym ms-1">∀</span>
+      <span class="math-sym ms-2 warm">∃</span>
+      <span class="math-sym ms-3">λ</span>
+      <span class="math-sym ms-4 warm">Σ</span>
+      <span class="math-sym ms-5">⊢</span>
+      <span class="math-sym ms-6 warm">μ</span>
+      <span class="math-sym ms-7">→</span>
+      <span class="math-sym ms-8">∘</span>
+    </div>
+    <div class="hero-label">Private Tuition — Mathematics & Computer Science</div>
+    <h1>Clear thinking,<br><em>rigorous</em> foundations.</h1>
+    <p class="hero-desc">
+      Private tuition in mathematics and computer science at every level — from first principles to formal proof.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Get in Touch</a>
+      <a href="#courses" class="btn btn-secondary">View Courses</a>
+    </div>
+  </section>
+
+  <!-- ── About ── -->
+  <section id="about">
+    <div class="reveal">
+      <div class="section-label">01 — About</div>
+      <h2 class="section-title">About.</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="about-content reveal">
+      <div class="about-text">
+        <p>
+          Private tuition in <strong>mathematics and computer science</strong> across many levels — school exams, university modules, and foundational topics.
+        </p>
+        <p>
+          I also teach courses in <strong>Logic &amp; Computability</strong> and the <strong>Mathematics of Computer Science</strong>, and <strong>mentor students on research projects</strong>.
+        </p>
+
+        <div class="credentials">
+          <div class="credential">
+            <div class="credential-icon">🎓</div>
+            <div class="credential-text">
+              <strong>PhD, Intelligent Systems</strong>
+              University of Edinburgh
+            </div>
+          </div>
+          <div class="credential">
+            <div class="credential-icon">🔬</div>
+            <div class="credential-text">
+              <strong>Research Associate, 6 years</strong>
+              University of Cambridge — heterogeneous reasoning &amp; the role of representation in reasoning
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-highlights">
+        <div class="highlight-card">
+          <h4>Research-Informed</h4>
+          <p>Teaching shaped by years of research into reasoning and representation.</p>
+        </div>
+        <div class="highlight-card">
+          <h4>All Levels</h4>
+          <p>GCSE and A-Level through to undergraduate and beyond.</p>
+        </div>
+        <div class="highlight-card">
+          <h4>Tailored Sessions</h4>
+          <p>Each lesson structured around specific goals and gaps.</p>
+        </div>
+        <div class="highlight-card">
+          <h4>Depth Over Speed</h4>
+          <p>Mathematical maturity and computational thinking, not exam tricks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Subjects ── -->
+  <section id="subjects">
+    <div class="reveal">
+      <div class="section-label">02 — Subjects</div>
+      <h2 class="section-title">What I teach.</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="subjects-grid reveal">
+      <div class="subject-card">
+        <span class="subject-icon">Σ</span>
+        <h3>Mathematics</h3>
+        <p>Algebra, calculus, analysis, linear algebra, probability, and statistics. Emphasis on proof and problem-solving.</p>
+        <div class="subject-levels">
+          <span class="level-tag">GCSE</span>
+          <span class="level-tag">A-Level</span>
+          <span class="level-tag">Undergraduate</span>
+          <span class="level-tag">Further Maths</span>
+        </div>
+      </div>
+      <div class="subject-card">
+        <span class="subject-icon">λ</span>
+        <h3>Computer Science</h3>
+        <p>Programming, data structures, algorithms, and computational thinking. Python, Java, and functional approaches.</p>
+        <div class="subject-levels">
+          <span class="level-tag">GCSE</span>
+          <span class="level-tag">A-Level</span>
+          <span class="level-tag">Undergraduate</span>
+          <span class="level-tag">Self-study</span>
+        </div>
+      </div>
+      <div class="subject-card">
+        <span class="subject-icon">⊢</span>
+        <h3>Logic &amp; Proof</h3>
+        <p>Formal logic, set theory, and proof techniques.</p>
+        <div class="subject-levels">
+          <span class="level-tag">A-Level</span>
+          <span class="level-tag">Undergraduate</span>
+          <span class="level-tag">Transition</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Courses ── -->
+  <section id="courses">
+    <div class="reveal">
+      <div class="section-label">03 — Courses</div>
+      <h2 class="section-title">Structured courses.</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="courses-container reveal">
+      <div class="course-card">
+        <div class="course-number">Course I</div>
+        <h3>Logic &amp; Computability</h3>
+        <p>Formal systems, from propositional and predicate logic through to Turing machines, decidability, and the limits of computation.</p>
+        <div class="course-topics">
+          <span class="course-topic">Propositional Logic</span>
+          <span class="course-topic">Predicate Logic</span>
+          <span class="course-topic">Turing Machines</span>
+          <span class="course-topic">Decidability</span>
+          <span class="course-topic">Gödel's Theorems</span>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-number">Course II</div>
+        <h3>Mathematics of Computer Science</h3>
+        <p>The mathematical toolkit for computer science — discrete structures, combinatorics, graph theory, number theory, and formal proof.</p>
+        <div class="course-topics">
+          <span class="course-topic">Discrete Maths</span>
+          <span class="course-topic">Graph Theory</span>
+          <span class="course-topic">Combinatorics</span>
+          <span class="course-topic">Number Theory</span>
+          <span class="course-topic">Formal Proofs</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Contact ── -->
+  <section id="contact">
+    <div class="reveal">
+      <div class="section-label">04 — Contact</div>
+      <h2 class="section-title">Get in touch.</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="contact-inner reveal">
+      <div class="contact-text">
+        <p>
+          For enquiries about tuition or courses, send a message and I'll respond promptly.
+        </p>
+        <div class="contact-detail">
+          <div class="icon">✉</div>
+          <div class="info">
+            <strong>Email</strong>
+            your.email@example.com
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="icon">◎</div>
+          <div class="info">
+            <strong>Location</strong>
+            Cambridge, UK &amp; Online
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="icon">◷</div>
+          <div class="info">
+            <strong>Availability</strong>
+            Mon – Sat, flexible hours
+          </div>
+        </div>
+      </div>
+      <div class="contact-form" id="contactForm">
+        <input type="text" placeholder="Your name" required>
+        <input type="email" placeholder="Your email" required>
+        <input type="text" placeholder="Subject (e.g. A-Level Maths, Logic course)">
+        <textarea placeholder="Message"></textarea>
+        <button class="btn btn-primary" type="button" onclick="handleSubmit()">Send Message</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 — proportion.</p>
+  </footer>
+</div>
+
+<!-- ══════════ HIDDEN PAGES (not linked from nav) ══════════ -->
+
+<div class="hidden-page" id="page-blog">
+  <section>
+    <div class="section-label">Blog</div>
+    <h2 class="section-title">Philosophy &amp; Science</h2>
+    <div class="divider"></div>
+    <p style="color:var(--muted); font-size:1.05rem; max-width:600px; line-height:1.8;">
+      Coming soon — reflections on philosophy, science, and the intersections between them. Check back later.
+    </p>
+    <a href="#" class="btn btn-secondary" style="margin-top:2rem;" onclick="showMain()">← Back to main site</a>
+  </section>
+</div>
+
+<div class="hidden-page" id="page-apps">
+  <section>
+    <div class="section-label">Web Apps</div>
+    <h2 class="section-title">Tools &amp; Applications</h2>
+    <div class="divider"></div>
+    <p style="color:var(--muted); font-size:1.05rem; max-width:600px; line-height:1.8;">
+      Coming soon — interactive web applications and tools. Stay tuned.
+    </p>
+    <a href="#" class="btn btn-secondary" style="margin-top:2rem;" onclick="showMain()">← Back to main site</a>
+  </section>
+</div>
+
+<div class="hidden-page" id="page-beer">
+  <section>
+    <div class="section-label">Brewing</div>
+    <h2 class="section-title">Craft Beer</h2>
+    <div class="divider"></div>
+    <p style="color:var(--muted); font-size:1.05rem; max-width:600px; line-height:1.8;">
+      Coming soon — a future venture in craft beer brewing. Watch this space.
+    </p>
+    <a href="#" class="btn btn-secondary" style="margin-top:2rem;" onclick="showMain()">← Back to main site</a>
+  </section>
+</div>
+
+<script>
+  // ── Theme toggle ──
+  function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch(e) {}
+  }
+
+  // Restore saved preference (default stays dark if none saved)
+  try {
+    const saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  } catch(e) {}
+
+  // ── Scroll reveal ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Mobile menu ──
+  function toggleMenu() { document.getElementById('navMenu').classList.toggle('open'); }
+  function closeMenu() { document.getElementById('navMenu').classList.remove('open'); }
+
+  // ── Contact form ──
+  function handleSubmit() {
+    const form = document.getElementById('contactForm');
+    const inputs = form.querySelectorAll('input, textarea');
+    let filled = true;
+    inputs.forEach(input => {
+      if (input.hasAttribute('required') && !input.value.trim()) {
+        filled = false;
+        input.style.borderColor = '#c4956a';
+      }
+    });
+    if (filled) {
+      alert('Thanks for your message! I\'ll get back to you soon.');
+      inputs.forEach(input => { input.value = ''; input.style.borderColor = ''; });
+    }
+  }
+
+  // ── Hidden pages ──
+  function showPage(pageId) {
+    document.getElementById('mainContent').classList.add('hidden');
+    document.querySelectorAll('.hidden-page').forEach(p => p.classList.remove('active'));
+    const page = document.getElementById('page-' + pageId);
+    if (page) page.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function showMain() {
+    document.querySelectorAll('.hidden-page').forEach(p => p.classList.remove('active'));
+    document.getElementById('mainContent').classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  function handleRoute() {
+    const hash = window.location.hash.repla
