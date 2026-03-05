@@ -900,6 +900,31 @@
 
   .contact-form textarea { min-height: 140px; }
   .contact-form .btn { border: none; text-align: center; }
+  .contact-form .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .form-status {
+    font-size: 0.88rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 4px;
+    display: none;
+  }
+
+  .form-status.success {
+    display: block;
+    color: #60c060;
+    background: rgba(96,192,96,0.08);
+    border: 1px solid rgba(96,192,96,0.2);
+  }
+
+  .form-status.error {
+    display: block;
+    color: #e06c60;
+    background: rgba(224,108,96,0.08);
+    border: 1px solid rgba(224,108,96,0.2);
+  }
 
   /* ── Footer ── */
   footer {
@@ -1187,16 +1212,16 @@
     <div class="divider"></div>
   </div>
 
-  <!-- BrewKit showcase -->
+  <!-- proportion. brewing app showcase -->
   <div class="showcase reveal">
     <div class="showcase-text">
       <div class="subtitle">Featured Project</div>
-      <h3>BrewKit</h3>
+      <h3>proportion<span style="color:var(--warm)">.</span></h3>
       <p>
         A science-first beer brewing application. Every calculation is grounded in the chemistry and physics of brewing &mdash; not rules of thumb.
       </p>
       <p>
-        Beyond recipe building, BrewKit integrates water treatment calculators, mash chemistry, and outcome prediction: what efficiency, attenuation, and flavour profile to expect given your water, grain bill, and process.
+        Beyond recipe building, it integrates water treatment calculators, mash chemistry, and outcome prediction: what efficiency, attenuation, and flavour profile to expect given your water, grain bill, and process.
       </p>
       <ul class="feature-list">
         <li>Recipe builder with real-time predictions</li>
@@ -1205,6 +1230,7 @@
         <li>Outcome prediction based on process parameters</li>
         <li>Lautering, boil-off, and fermentation calculators</li>
       </ul>
+      <a href="https://proportion-brewing.vercel.app/" target="_blank" rel="noopener" class="btn btn-secondary" style="margin-top:1.5rem;">Try the app &rarr;</a>
     </div>
     <div class="showcase-visual">
       <div class="mock-window">
@@ -1214,17 +1240,20 @@
           <div class="mock-dot"></div>
         </div>
         <div class="mock-body">
-          <div><span class="line-comment">// recipe: West Coast IPA</span></div>
-          <div><span class="line-label">og:</span> <span class="line-value">1.065</span></div>
-          <div><span class="line-label">fg:</span> <span class="line-value">1.010</span></div>
-          <div><span class="line-label">ibu:</span> <span class="line-value">62</span></div>
-          <div><span class="line-label">srm:</span> <span class="line-value">7.2</span></div>
-          <div><span class="line-label">abv:</span> <span class="line-value">7.2%</span></div>
-          <div style="margin-top:0.8rem"><span class="line-comment">// water profile</span></div>
-          <div><span class="line-label">ca:</span> <span class="line-value">110 ppm</span> <span class="line-label">so4:</span> <span class="line-value">275 ppm</span></div>
-          <div><span class="line-label">cl:</span> <span class="line-value">50 ppm</span>  <span class="line-label">ratio:</span> <span class="line-value">5.5 (bitter)</span></div>
-          <div style="margin-top:0.8rem"><span class="line-comment">// predicted mash</span></div>
-          <div><span class="line-label">pH:</span> <span class="line-value">5.38</span></div>
+          <div><span class="line-comment">// proportion. &mdash; recipe builder</span></div>
+          <div style="margin-top:0.5rem"><span class="line-label">style:</span> <span class="line-value">West Coast IPA</span></div>
+          <div><span class="line-label">batch:</span> <span class="line-value">23 L</span></div>
+          <div style="margin-top:0.8rem"><span class="line-comment">// grain bill</span></div>
+          <div><span class="line-value">5.2 kg Maris Otter</span></div>
+          <div><span class="line-value">0.4 kg Crystal 40</span></div>
+          <div><span class="line-value">0.2 kg Munich</span></div>
+          <div style="margin-top:0.8rem"><span class="line-comment">// water treatment</span></div>
+          <div><span class="line-label">Ca:</span> <span class="line-value">110</span> <span class="line-label">SO&#8324;:</span> <span class="line-value">275</span> <span class="line-label">Cl:</span> <span class="line-value">50</span></div>
+          <div><span class="line-label">SO&#8324;:Cl:</span> <span class="line-value">5.5</span> <span class="line-comment">(bitter-forward)</span></div>
+          <div><span class="line-label">mash pH:</span> <span class="line-value">5.38</span> <span class="line-comment">(predicted)</span></div>
+          <div style="margin-top:0.8rem"><span class="line-comment">// predicted outcome</span></div>
+          <div><span class="line-label">OG:</span> <span class="line-value">1.065</span> <span class="line-label">FG:</span> <span class="line-value">1.010</span></div>
+          <div><span class="line-label">ABV:</span> <span class="line-value">7.2%</span> <span class="line-label">IBU:</span> <span class="line-value">62</span></div>
           <div><span class="line-label">efficiency:</span> <span class="line-value">74.2%</span></div>
         </div>
       </div>
@@ -1304,13 +1333,6 @@
         Whether you're looking for tuition, want a website built, or fancy some custom beer &mdash; drop me a message.
       </p>
       <div class="contact-detail">
-        <div class="icon">&#9993;</div>
-        <div class="info">
-          <strong>Email</strong>
-          your.email@example.com
-        </div>
-      </div>
-      <div class="contact-detail">
         <div class="icon">&#9678;</div>
         <div class="info">
           <strong>Location</strong>
@@ -1324,20 +1346,28 @@
           Mon &ndash; Sat, flexible hours
         </div>
       </div>
+      <div class="contact-detail">
+        <div class="icon">&#9993;</div>
+        <div class="info">
+          <strong>Response time</strong>
+          Usually within 24 hours
+        </div>
+      </div>
     </div>
     <div class="contact-form" id="contactForm">
-      <input type="text" placeholder="Your name" required>
-      <input type="email" placeholder="Your email" required>
-      <select>
+      <input type="text" name="name" placeholder="Your name" required>
+      <input type="email" name="email" placeholder="Your email" required>
+      <select name="regarding">
         <option value="" disabled selected>What is this about?</option>
-        <option value="tutoring">Tutoring</option>
-        <option value="courses">Courses</option>
-        <option value="webdev">Web / App Development</option>
-        <option value="brewing">Custom Beer</option>
-        <option value="other">Something else</option>
+        <option value="Tutoring">Tutoring</option>
+        <option value="Courses">Courses</option>
+        <option value="Web / App Development">Web / App Development</option>
+        <option value="Custom Beer">Custom Beer</option>
+        <option value="Other">Something else</option>
       </select>
-      <textarea placeholder="Message"></textarea>
-      <button class="btn btn-primary" type="button" onclick="handleSubmit()">Send Message</button>
+      <textarea name="message" placeholder="Message"></textarea>
+      <div class="form-status" id="formStatus"></div>
+      <button class="btn btn-primary" type="button" onclick="handleSubmit()" id="submitBtn">Send Message</button>
     </div>
   </div>
 </section>
@@ -1376,7 +1406,11 @@
   // ── Contact form ──
   function handleSubmit() {
     const form = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+    const btn = document.getElementById('submitBtn');
     const inputs = form.querySelectorAll('input, textarea');
+
+    // Validate required fields
     let filled = true;
     inputs.forEach(input => {
       if (input.hasAttribute('required') && !input.value.trim()) {
@@ -1386,11 +1420,53 @@
         input.style.borderColor = '';
       }
     });
-    if (filled) {
-      alert('Thanks for your message! I\'ll get back to you soon.');
-      inputs.forEach(input => { input.value = ''; input.style.borderColor = ''; });
-      form.querySelector('select').selectedIndex = 0;
-    }
+    if (!filled) return;
+
+    // Collect form data
+    const name = form.querySelector('[name="name"]').value.trim();
+    const email = form.querySelector('[name="email"]').value.trim();
+    const regarding = form.querySelector('[name="regarding"]').value || 'General';
+    const message = form.querySelector('[name="message"]').value.trim();
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    status.className = 'form-status';
+    status.style.display = 'none';
+
+    const target = atob('ZGFuaWVscmFnZ2lAZ21haWwuY29t');
+
+    fetch('https://formsubmit.co/ajax/' + target, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        regarding: regarding,
+        message: message,
+        _subject: 'SCHOLAR: ' + regarding + ' — ' + name
+      })
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.success === 'true' || data.success === true) {
+        status.className = 'form-status success';
+        status.textContent = 'Message sent! I\'ll get back to you soon.';
+        status.style.display = 'block';
+        inputs.forEach(input => { input.value = ''; input.style.borderColor = ''; });
+        form.querySelector('select').selectedIndex = 0;
+      } else {
+        throw new Error('Submission failed');
+      }
+    })
+    .catch(() => {
+      status.className = 'form-status error';
+      status.textContent = 'Something went wrong. Please try again or reach out directly.';
+      status.style.display = 'block';
+    })
+    .finally(() => {
+      btn.disabled = false;
+      btn.textContent = 'Send Message';
+    });
   }
 </script>
 </body>
