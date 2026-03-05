@@ -1180,4 +1180,16 @@
   }
 
   function handleRoute() {
-    const hash = window.location.hash.repla
+    const hash = window.location.hash.replace('#', '');
+    if (['blog', 'apps', 'beer'].includes(hash)) {
+      showPage(hash);
+    } else {
+      showMain();
+    }
+  }
+
+  window.addEventListener('hashchange', handleRoute);
+  handleRoute();
+</script>
+</body>
+</html>
