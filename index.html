@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>proportion. — Mathematics & Computer Science</title>
+<title>Daniel Raggi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -25,15 +25,11 @@
     --nav-border: rgba(255,255,255,0.06);
     --input-bg: rgba(255,255,255,0.06);
     --input-border: rgba(255,255,255,0.1);
-    --course-bg: #1a1a2e;
-    --course-circle: rgba(255,255,255,0.04);
-    --course-text: rgba(228,224,216,0.65);
-    --course-topic-border: rgba(228,224,216,0.12);
-    --course-topic-text: rgba(228,224,216,0.5);
-    --hero-annotation: rgba(138,159,212,0.2);
     --highlight-shadow: rgba(0,0,0,0.2);
     --btn-secondary-border: rgba(228,224,216,0.2);
     --mobile-menu-shadow: rgba(0,0,0,0.3);
+    --tag-bg: var(--paper);
+    --tag-border: var(--card-border);
   }
 
   /* ── Light theme ── */
@@ -54,15 +50,11 @@
     --nav-border: rgba(45,45,68,0.08);
     --input-bg: #e4dfd5;
     --input-border: rgba(45,45,68,0.12);
-    --course-bg: #2d2d44;
-    --course-circle: rgba(240,236,226,0.05);
-    --course-text: rgba(240,236,226,0.7);
-    --course-topic-border: rgba(240,236,226,0.15);
-    --course-topic-text: rgba(240,236,226,0.6);
-    --hero-annotation: rgba(106,127,196,0.3);
     --highlight-shadow: rgba(26,26,46,0.04);
     --btn-secondary-border: rgba(45,45,68,0.2);
     --mobile-menu-shadow: rgba(0,0,0,0.1);
+    --tag-bg: var(--paper);
+    --tag-border: var(--card-border);
   }
 
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -77,7 +69,6 @@
     transition: background 0.4s ease, color 0.4s ease;
   }
 
-  /* ── Grid paper background ── */
   body::before {
     content: '';
     position: fixed;
@@ -88,7 +79,6 @@
     background-size: 40px 40px;
     pointer-events: none;
     z-index: 0;
-    transition: background-image 0.4s ease;
   }
 
   /* ── Theme switch ── */
@@ -131,9 +121,7 @@
     border: 1px solid var(--input-border);
   }
 
-  .theme-switch:hover .theme-switch-track {
-    border-color: var(--warm);
-  }
+  .theme-switch:hover .theme-switch-track { border-color: var(--warm); }
 
   .theme-switch-thumb {
     position: absolute;
@@ -142,7 +130,7 @@
     height: 16px;
     border-radius: 50%;
     background: var(--warm);
-    transition: left 0.3s ease, background 0.3s ease;
+    transition: left 0.3s ease;
     box-shadow: 0 1px 4px rgba(0,0,0,0.2);
   }
 
@@ -171,6 +159,7 @@
     font-size: 1.4rem;
     color: var(--slate);
     letter-spacing: -0.02em;
+    text-decoration: none;
     transition: color 0.4s;
   }
 
@@ -259,7 +248,7 @@
     margin-top: 2rem;
     font-size: 1.15rem;
     color: var(--muted);
-    max-width: 520px;
+    max-width: 560px;
     line-height: 1.8;
     opacity: 0;
     animation: fadeUp 0.8s ease 0.6s forwards;
@@ -311,7 +300,7 @@
     transform: translateY(-2px);
   }
 
-  /* ── Floating math symbols ── */
+  /* ── Floating symbols ── */
   .math-symbols {
     position: absolute;
     inset: 0;
@@ -327,16 +316,11 @@
     font-style: italic;
     opacity: 0;
     animation: floatIn 1s ease forwards, drift 8s ease-in-out infinite alternate;
-    color: var(--accent);
     transition: color 0.4s;
   }
 
   [data-theme="dark"] .math-sym { color: rgba(138,159,212,0.15); }
   [data-theme="light"] .math-sym { color: rgba(106,127,196,0.18); }
-
-  .math-sym.warm {
-    color: var(--warm);
-  }
   [data-theme="dark"] .math-sym.warm { color: rgba(212,165,116,0.12); }
   [data-theme="light"] .math-sym.warm { color: rgba(196,149,106,0.15); }
 
@@ -346,8 +330,6 @@
   .ms-4 { font-size: 4rem; bottom: 10%; right: 2%; animation-delay: 1.2s, 1.2s; }
   .ms-5 { font-size: 3rem; top: 18%; right: 22%; animation-delay: 0.5s, 0.5s; }
   .ms-6 { font-size: 6rem; bottom: 30%; right: 25%; animation-delay: 1.0s, 1.0s; }
-  .ms-7 { font-size: 2.5rem; top: 55%; right: 5%; animation-delay: 1.4s, 1.4s; }
-  .ms-8 { font-size: 4.5rem; top: 8%; right: 35%; animation-delay: 0.7s, 0.7s; }
 
   @keyframes floatIn {
     from { opacity: 0; transform: translateY(20px) scale(0.9); }
@@ -381,6 +363,22 @@
     transition: color 0.4s;
   }
 
+  .section-desc {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 600px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--warm);
+    margin: 0 0 2rem 0;
+    opacity: 0.6;
+  }
+
   /* ── About ── */
   .about-content {
     display: grid;
@@ -402,41 +400,6 @@
     transition: color 0.4s;
   }
 
-  .about-highlights {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .highlight-card {
-    padding: 1.8rem 2rem;
-    background: var(--card-bg);
-    border-radius: 6px;
-    border-left: 3px solid var(--warm);
-    box-shadow: 0 2px 20px var(--highlight-shadow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.4s ease;
-  }
-
-  .highlight-card:hover {
-    transform: translateX(6px);
-    box-shadow: 0 4px 30px var(--card-shadow);
-  }
-
-  .highlight-card h4 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--slate);
-    margin-bottom: 0.4rem;
-    transition: color 0.4s;
-  }
-
-  .highlight-card p {
-    font-size: 0.9rem;
-    color: var(--muted);
-  }
-
-  /* ── Credentials ── */
   .credentials {
     display: flex;
     gap: 2rem;
@@ -481,15 +444,49 @@
     transition: color 0.4s;
   }
 
-  /* ── Subjects ── */
-  .subjects-grid {
+  .about-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .highlight-card {
+    padding: 1.8rem 2rem;
+    background: var(--card-bg);
+    border-radius: 6px;
+    border-left: 3px solid var(--warm);
+    box-shadow: 0 2px 20px var(--highlight-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.4s ease;
+  }
+
+  .highlight-card:hover {
+    transform: translateX(6px);
+    box-shadow: 0 4px 30px var(--card-shadow);
+  }
+
+  .highlight-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--slate);
+    margin-bottom: 0.4rem;
+    transition: color 0.4s;
+  }
+
+  .highlight-card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  /* ── Cards grid ── */
+  .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.8rem;
     margin-top: 2.5rem;
   }
 
-  .subject-card {
+  .card {
     padding: 2.5rem 2rem;
     background: var(--card-bg);
     border-radius: 6px;
@@ -500,7 +497,7 @@
     transition: all 0.4s ease;
   }
 
-  .subject-card::before {
+  .card::before {
     content: '';
     position: absolute;
     top: 0;
@@ -513,14 +510,13 @@
     transition: transform 0.4s ease;
   }
 
-  .subject-card:hover::before { transform: scaleX(1); }
-
-  .subject-card:hover {
+  .card:hover::before { transform: scaleX(1); }
+  .card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 40px var(--card-shadow);
   }
 
-  .subject-icon {
+  .card-icon {
     font-family: 'JetBrains Mono', monospace;
     font-size: 1.8rem;
     margin-bottom: 1rem;
@@ -528,7 +524,7 @@
     color: var(--warm);
   }
 
-  .subject-card h3 {
+  .card h3 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.35rem;
     font-weight: 700;
@@ -537,26 +533,26 @@
     transition: color 0.4s;
   }
 
-  .subject-card p {
+  .card p {
     font-size: 0.92rem;
     color: var(--muted);
     line-height: 1.7;
   }
 
-  .subject-levels {
+  .tag-row {
     margin-top: 1rem;
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
   }
 
-  .level-tag {
+  .tag {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.68rem;
     letter-spacing: 0.06em;
     padding: 0.3rem 0.7rem;
-    background: var(--paper);
-    border: 1px solid var(--card-border);
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
     border-radius: 3px;
     color: var(--muted);
     transition: background 0.4s, border-color 0.4s;
@@ -572,7 +568,7 @@
 
   .course-card {
     padding: 3rem;
-    background: var(--course-bg);
+    background: var(--chalk);
     border-radius: 8px;
     position: relative;
     overflow: hidden;
@@ -589,18 +585,7 @@
     right: -30%;
     width: 200px;
     height: 200px;
-    border: 1px solid var(--course-circle);
-    border-radius: 50%;
-  }
-
-  .course-card::before {
-    content: '';
-    position: absolute;
-    bottom: -30%;
-    right: -20%;
-    width: 300px;
-    height: 300px;
-    border: 1px solid var(--course-circle);
+    border: 1px solid rgba(255,255,255,0.04);
     border-radius: 50%;
   }
 
@@ -624,12 +609,9 @@
     color: var(--slate);
   }
 
-  [data-theme="light"] .course-card h3 { color: #f0ece2; }
-  [data-theme="light"] .course-card { color: #f0ece2; }
-
   .course-card p {
     font-size: 0.92rem;
-    color: var(--course-text);
+    color: var(--muted);
     line-height: 1.8;
     position: relative;
     z-index: 1;
@@ -648,9 +630,180 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.68rem;
     padding: 0.35rem 0.8rem;
-    border: 1px solid var(--course-topic-border);
+    border: 1px solid var(--card-border);
     border-radius: 3px;
-    color: var(--course-topic-text);
+    color: var(--muted);
+  }
+
+  /* ── Feature showcase (BrewKit) ── */
+  .showcase {
+    margin-top: 2.5rem;
+    padding: 3rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .showcase-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--slate);
+    margin-bottom: 0.5rem;
+    transition: color 0.4s;
+  }
+
+  .showcase-text .subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: var(--warm);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .showcase-text p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .feature-list {
+    list-style: none;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .feature-list li {
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding-left: 1.4rem;
+    position: relative;
+  }
+
+  .feature-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--warm);
+  }
+
+  .showcase-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mock-window {
+    background: var(--chalk);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .mock-titlebar {
+    padding: 0.6rem 1rem;
+    display: flex;
+    gap: 0.4rem;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .mock-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--card-border);
+  }
+
+  .mock-dot:first-child { background: #e06c60; }
+  .mock-dot:nth-child(2) { background: #e0b060; }
+  .mock-dot:nth-child(3) { background: #60c060; }
+
+  .mock-body {
+    padding: 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 2;
+  }
+
+  .mock-body .line-label {
+    color: var(--warm);
+    opacity: 0.7;
+  }
+
+  .mock-body .line-value {
+    color: var(--slate);
+  }
+
+  .mock-body .line-comment {
+    color: var(--accent);
+    opacity: 0.5;
+  }
+
+  /* ── Brewing section ── */
+  .brewing-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 2.5rem;
+  }
+
+  .brewing-text p {
+    font-size: 1.02rem;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+    line-height: 1.8;
+  }
+
+  .brewing-text p strong {
+    color: var(--slate);
+    font-weight: 600;
+    transition: color 0.4s;
+  }
+
+  .brewing-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .brewing-detail-card {
+    padding: 1.8rem 2rem;
+    background: var(--card-bg);
+    border-radius: 6px;
+    border-left: 3px solid var(--accent);
+    box-shadow: 0 2px 20px var(--highlight-shadow);
+    transition: transform 0.3s ease, background 0.4s ease;
+  }
+
+  .brewing-detail-card:hover { transform: translateX(6px); }
+
+  .brewing-detail-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--slate);
+    margin-bottom: 0.3rem;
+    transition: color 0.4s;
+  }
+
+  .brewing-detail-card p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
   }
 
   /* ── Contact ── */
@@ -710,6 +863,7 @@
   }
 
   .contact-form input,
+  .contact-form select,
   .contact-form textarea {
     padding: 1rem 1.2rem;
     background: var(--input-bg);
@@ -723,7 +877,17 @@
     resize: vertical;
   }
 
+  .contact-form select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239a9aae' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.2rem center;
+    padding-right: 3rem;
+  }
+
   .contact-form input:focus,
+  .contact-form select:focus,
   .contact-form textarea:focus {
     border-color: var(--warm);
   }
@@ -752,15 +916,6 @@
     color: var(--muted);
   }
 
-  /* ── Divider ── */
-  .divider {
-    width: 60px;
-    height: 2px;
-    background: var(--warm);
-    margin: 0 0 2rem 0;
-    opacity: 0.6;
-  }
-
   /* ── Animations ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
@@ -778,7 +933,7 @@
     transform: translateY(0);
   }
 
-  /* ── Mobile hamburger ── */
+  /* ── Hamburger ── */
   .hamburger {
     display: none;
     flex-direction: column;
@@ -822,7 +977,9 @@
 
     .about-content,
     .courses-container,
-    .contact-inner {
+    .contact-inner,
+    .showcase,
+    .brewing-content {
       grid-template-columns: 1fr;
       gap: 2rem;
     }
@@ -832,40 +989,33 @@
 
   @media (max-width: 600px) {
     .hero h1 { font-size: 2.4rem; }
-    .subjects-grid { grid-template-columns: 1fr; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .courses-container { grid-template-columns: 1fr; }
     .course-card { padding: 2rem; }
     .credentials { flex-direction: column; gap: 1.2rem; }
+    .showcase { padding: 2rem; }
   }
-
-  /* ── Hidden pages ── */
-  .hidden-page {
-    display: none;
-    min-height: 100vh;
-    padding-top: 8rem;
-  }
-
-  .hidden-page.active { display: block; }
-  .main-content.hidden { display: none; }
 </style>
 </head>
 <body>
 
 <!-- ── Navigation ── -->
 <nav>
-  <div class="logo">proportion<span>.</span></div>
+  <a class="logo" href="#hero" onclick="closeMenu()">Daniel Raggi<span>.</span></a>
   <ul id="navMenu">
     <li><a href="#about" onclick="closeMenu()">About</a></li>
-    <li><a href="#subjects" onclick="closeMenu()">Subjects</a></li>
-    <li><a href="#courses" onclick="closeMenu()">Courses</a></li>
+    <li><a href="#teaching" onclick="closeMenu()">Teaching</a></li>
+    <li><a href="#software" onclick="closeMenu()">Software</a></li>
+    <li><a href="#brewing" onclick="closeMenu()">Brewing</a></li>
     <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
   </ul>
   <div class="nav-right">
     <div class="theme-switch" onclick="toggleTheme()" role="button" aria-label="Toggle light/dark mode" tabindex="0">
-      <span class="theme-switch-icon sun-icon">☀︎</span>
+      <span class="theme-switch-icon sun-icon">&#9788;</span>
       <span class="theme-switch-track">
         <span class="theme-switch-thumb"></span>
       </span>
-      <span class="theme-switch-icon moon-icon">☽</span>
+      <span class="theme-switch-icon moon-icon">&#9789;</span>
     </div>
     <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -873,262 +1023,338 @@
   </div>
 </nav>
 
-<!-- ══════════ MAIN SITE CONTENT ══════════ -->
-<div class="main-content" id="mainContent">
+<!-- ── Hero ── -->
+<section class="hero" id="hero">
+  <div class="math-symbols">
+    <span class="math-sym ms-1">&#8704;</span>
+    <span class="math-sym ms-2 warm">&#8707;</span>
+    <span class="math-sym ms-3">&#955;</span>
+    <span class="math-sym ms-4 warm">&#931;</span>
+    <span class="math-sym ms-5">&#8866;</span>
+    <span class="math-sym ms-6 warm">&#8728;</span>
+  </div>
+  <div class="hero-label">Cambridge, UK &amp; Online</div>
+  <h1>Rigorous thinking,<br><em>creative</em> solutions.</h1>
+  <p class="hero-desc">
+    Mathematician and computer scientist. I teach, I build software, and I brew beer &mdash; all grounded in first principles and a love of getting the details right.
+  </p>
+  <div class="hero-cta">
+    <a href="#contact" class="btn btn-primary">Get in Touch</a>
+    <a href="#about" class="btn btn-secondary">Learn More</a>
+  </div>
+</section>
 
-  <!-- ── Hero ── -->
-  <section class="hero" id="hero">
-    <div class="math-symbols">
-      <span class="math-sym ms-1">∀</span>
-      <span class="math-sym ms-2 warm">∃</span>
-      <span class="math-sym ms-3">λ</span>
-      <span class="math-sym ms-4 warm">Σ</span>
-      <span class="math-sym ms-5">⊢</span>
-      <span class="math-sym ms-6 warm">μ</span>
-      <span class="math-sym ms-7">→</span>
-      <span class="math-sym ms-8">∘</span>
-    </div>
-    <div class="hero-label">Private Tuition — Mathematics & Computer Science</div>
-    <h1>Clear thinking,<br><em>rigorous</em> foundations.</h1>
-    <p class="hero-desc">
-      Private tuition in mathematics and computer science at every level — from first principles to formal proof.
-    </p>
-    <div class="hero-cta">
-      <a href="#contact" class="btn btn-primary">Get in Touch</a>
-      <a href="#courses" class="btn btn-secondary">View Courses</a>
-    </div>
-  </section>
-
-  <!-- ── About ── -->
-  <section id="about">
-    <div class="reveal">
-      <div class="section-label">01 — About</div>
-      <h2 class="section-title">About.</h2>
-      <div class="divider"></div>
-    </div>
-    <div class="about-content reveal">
-      <div class="about-text">
-        <p>
-          Private tuition in <strong>mathematics and computer science</strong> across many levels — school exams, university modules, and foundational topics.
-        </p>
-        <p>
-          I also teach courses in <strong>Logic &amp; Computability</strong> and the <strong>Mathematics of Computer Science</strong>, and <strong>mentor students on research projects</strong>.
-        </p>
-
-        <div class="credentials">
-          <div class="credential">
-            <div class="credential-icon">🎓</div>
-            <div class="credential-text">
-              <strong>PhD, Intelligent Systems</strong>
-              University of Edinburgh
-            </div>
-          </div>
-          <div class="credential">
-            <div class="credential-icon">🔬</div>
-            <div class="credential-text">
-              <strong>Research Associate, 6 years</strong>
-              University of Cambridge — heterogeneous reasoning &amp; the role of representation in reasoning
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="about-highlights">
-        <div class="highlight-card">
-          <h4>Research-Informed</h4>
-          <p>Teaching shaped by years of research into reasoning and representation.</p>
-        </div>
-        <div class="highlight-card">
-          <h4>All Levels</h4>
-          <p>GCSE and A-Level through to undergraduate and beyond.</p>
-        </div>
-        <div class="highlight-card">
-          <h4>Tailored Sessions</h4>
-          <p>Each lesson structured around specific goals and gaps.</p>
-        </div>
-        <div class="highlight-card">
-          <h4>Depth Over Speed</h4>
-          <p>Mathematical maturity and computational thinking, not exam tricks.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Subjects ── -->
-  <section id="subjects">
-    <div class="reveal">
-      <div class="section-label">02 — Subjects</div>
-      <h2 class="section-title">What I teach.</h2>
-      <div class="divider"></div>
-    </div>
-    <div class="subjects-grid reveal">
-      <div class="subject-card">
-        <span class="subject-icon">Σ</span>
-        <h3>Mathematics</h3>
-        <p>Algebra, calculus, analysis, linear algebra, probability, and statistics. Emphasis on proof and problem-solving.</p>
-        <div class="subject-levels">
-          <span class="level-tag">GCSE</span>
-          <span class="level-tag">A-Level</span>
-          <span class="level-tag">Undergraduate</span>
-          <span class="level-tag">Further Maths</span>
-        </div>
-      </div>
-      <div class="subject-card">
-        <span class="subject-icon">λ</span>
-        <h3>Computer Science</h3>
-        <p>Programming, data structures, algorithms, and computational thinking. Python, Java, and functional approaches.</p>
-        <div class="subject-levels">
-          <span class="level-tag">GCSE</span>
-          <span class="level-tag">A-Level</span>
-          <span class="level-tag">Undergraduate</span>
-          <span class="level-tag">Self-study</span>
-        </div>
-      </div>
-      <div class="subject-card">
-        <span class="subject-icon">⊢</span>
-        <h3>Logic &amp; Proof</h3>
-        <p>Formal logic, set theory, and proof techniques.</p>
-        <div class="subject-levels">
-          <span class="level-tag">A-Level</span>
-          <span class="level-tag">Undergraduate</span>
-          <span class="level-tag">Transition</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Courses ── -->
-  <section id="courses">
-    <div class="reveal">
-      <div class="section-label">03 — Courses</div>
-      <h2 class="section-title">Structured courses.</h2>
-      <div class="divider"></div>
-    </div>
-    <div class="courses-container reveal">
-      <div class="course-card">
-        <div class="course-number">Course I</div>
-        <h3>Logic &amp; Computability</h3>
-        <p>Formal systems, from propositional and predicate logic through to Turing machines, decidability, and the limits of computation.</p>
-        <div class="course-topics">
-          <span class="course-topic">Propositional Logic</span>
-          <span class="course-topic">Predicate Logic</span>
-          <span class="course-topic">Turing Machines</span>
-          <span class="course-topic">Decidability</span>
-          <span class="course-topic">Gödel's Theorems</span>
-        </div>
-      </div>
-      <div class="course-card">
-        <div class="course-number">Course II</div>
-        <h3>Mathematics of Computer Science</h3>
-        <p>The mathematical toolkit for computer science — discrete structures, combinatorics, graph theory, number theory, and formal proof.</p>
-        <div class="course-topics">
-          <span class="course-topic">Discrete Maths</span>
-          <span class="course-topic">Graph Theory</span>
-          <span class="course-topic">Combinatorics</span>
-          <span class="course-topic">Number Theory</span>
-          <span class="course-topic">Formal Proofs</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Contact ── -->
-  <section id="contact">
-    <div class="reveal">
-      <div class="section-label">04 — Contact</div>
-      <h2 class="section-title">Get in touch.</h2>
-      <div class="divider"></div>
-    </div>
-    <div class="contact-inner reveal">
-      <div class="contact-text">
-        <p>
-          For enquiries about tuition or courses, send a message and I'll respond promptly.
-        </p>
-        <div class="contact-detail">
-          <div class="icon">✉</div>
-          <div class="info">
-            <strong>Email</strong>
-            your.email@example.com
-          </div>
-        </div>
-        <div class="contact-detail">
-          <div class="icon">◎</div>
-          <div class="info">
-            <strong>Location</strong>
-            Cambridge, UK &amp; Online
-          </div>
-        </div>
-        <div class="contact-detail">
-          <div class="icon">◷</div>
-          <div class="info">
-            <strong>Availability</strong>
-            Mon – Sat, flexible hours
-          </div>
-        </div>
-      </div>
-      <div class="contact-form" id="contactForm">
-        <input type="text" placeholder="Your name" required>
-        <input type="email" placeholder="Your email" required>
-        <input type="text" placeholder="Subject (e.g. A-Level Maths, Logic course)">
-        <textarea placeholder="Message"></textarea>
-        <button class="btn btn-primary" type="button" onclick="handleSubmit()">Send Message</button>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2026 — proportion.</p>
-  </footer>
-</div>
-
-<!-- ══════════ HIDDEN PAGES (not linked from nav) ══════════ -->
-
-<div class="hidden-page" id="page-blog">
-  <section>
-    <div class="section-label">Blog</div>
-    <h2 class="section-title">Philosophy &amp; Science</h2>
+<!-- ── About ── -->
+<section id="about">
+  <div class="reveal">
+    <div class="section-label">01 &mdash; About</div>
+    <h2 class="section-title">About me.</h2>
     <div class="divider"></div>
-    <p style="color:var(--muted); font-size:1.05rem; max-width:600px; line-height:1.8;">
-      Coming soon — reflections on philosophy, science, and the intersections between them. Check back later.
-    </p>
-    <a href="#" class="btn btn-secondary" style="margin-top:2rem;" onclick="showMain()">← Back to main site</a>
-  </section>
-</div>
+  </div>
+  <div class="about-content reveal">
+    <div class="about-text">
+      <p>
+        I'm a <strong>mathematician and computer scientist</strong> based in Cambridge, UK. My background is in formal reasoning, logic, and the role of representation in problem-solving.
+      </p>
+      <p>
+        After completing my PhD, I spent <strong>six years as a Research Associate at the University of Cambridge</strong>, working on heterogeneous reasoning and how the choice of representation shapes what we can discover.
+      </p>
+      <p>
+        Today I apply that same rigour across everything I do &mdash; whether that's teaching a student to write their first proof, building science-driven software, or dialling in a recipe for a perfect West Coast IPA.
+      </p>
+      <div class="credentials">
+        <div class="credential">
+          <div class="credential-icon">&#127891;</div>
+          <div class="credential-text">
+            <strong>PhD, Intelligent Systems</strong>
+            University of Edinburgh
+          </div>
+        </div>
+        <div class="credential">
+          <div class="credential-icon">&#128300;</div>
+          <div class="credential-text">
+            <strong>Research Associate, 6 years</strong>
+            University of Cambridge
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="about-highlights">
+      <div class="highlight-card">
+        <h4>Teaching</h4>
+        <p>Private tuition in maths and computer science, from GCSE to undergraduate level.</p>
+      </div>
+      <div class="highlight-card">
+        <h4>Software</h4>
+        <p>Web and app development, including a science-based beer brewing platform.</p>
+      </div>
+      <div class="highlight-card">
+        <h4>Brewing</h4>
+        <p>Custom beer brewed to specification in the Cambridge area.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<div class="hidden-page" id="page-apps">
-  <section>
-    <div class="section-label">Web Apps</div>
-    <h2 class="section-title">Tools &amp; Applications</h2>
+<!-- ── Teaching ── -->
+<section id="teaching">
+  <div class="reveal">
+    <div class="section-label">02 &mdash; Teaching</div>
+    <h2 class="section-title">What I teach.</h2>
     <div class="divider"></div>
-    <p style="color:var(--muted); font-size:1.05rem; max-width:600px; line-height:1.8;">
-      Coming soon — interactive web applications and tools. Stay tuned.
+    <p class="section-desc">
+      Private tuition in mathematics and computer science at every level. In-person sessions available in the Cambridge, UK area, or online anywhere.
     </p>
-    <a href="#" class="btn btn-secondary" style="margin-top:2rem;" onclick="showMain()">← Back to main site</a>
-  </section>
-</div>
+  </div>
 
-<div class="hidden-page" id="page-beer">
-  <section>
-    <div class="section-label">Brewing</div>
-    <h2 class="section-title">Craft Beer</h2>
+  <div class="cards-grid reveal">
+    <div class="card">
+      <span class="card-icon">&#931;</span>
+      <h3>Mathematics</h3>
+      <p>Algebra, calculus, analysis, linear algebra, probability, and statistics. Emphasis on proof and problem-solving.</p>
+      <div class="tag-row">
+        <span class="tag">GCSE</span>
+        <span class="tag">A-Level</span>
+        <span class="tag">Further Maths</span>
+        <span class="tag">Undergraduate</span>
+      </div>
+    </div>
+    <div class="card">
+      <span class="card-icon">&#955;</span>
+      <h3>Computer Science</h3>
+      <p>Programming, data structures, algorithms, and computational thinking. Python, Java, and functional approaches.</p>
+      <div class="tag-row">
+        <span class="tag">GCSE</span>
+        <span class="tag">A-Level</span>
+        <span class="tag">Undergraduate</span>
+        <span class="tag">Self-study</span>
+      </div>
+    </div>
+    <div class="card">
+      <span class="card-icon">&#8866;</span>
+      <h3>Logic &amp; Proof</h3>
+      <p>Formal logic, set theory, and proof techniques for students making the transition to rigorous mathematics.</p>
+      <div class="tag-row">
+        <span class="tag">A-Level</span>
+        <span class="tag">Undergraduate</span>
+        <span class="tag">Transition</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Structured courses -->
+  <div class="reveal" style="margin-top: 5rem;">
+    <div class="section-label">Structured Courses</div>
+    <h2 class="section-title">Deep dives.</h2>
     <div class="divider"></div>
-    <p style="color:var(--muted); font-size:1.05rem; max-width:600px; line-height:1.8;">
-      Coming soon — a future venture in craft beer brewing. Watch this space.
+    <p class="section-desc">
+      Multi-session courses that take a topic from foundations through to real depth.
     </p>
-    <a href="#" class="btn btn-secondary" style="margin-top:2rem;" onclick="showMain()">← Back to main site</a>
-  </section>
-</div>
+  </div>
+  <div class="courses-container reveal">
+    <div class="course-card">
+      <div class="course-number">Course I</div>
+      <h3>Logic &amp; Computability</h3>
+      <p>Formal systems, from propositional and predicate logic through to Turing machines, decidability, and the limits of computation.</p>
+      <div class="course-topics">
+        <span class="course-topic">Propositional Logic</span>
+        <span class="course-topic">Predicate Logic</span>
+        <span class="course-topic">Turing Machines</span>
+        <span class="course-topic">Decidability</span>
+        <span class="course-topic">G&ouml;del's Theorems</span>
+      </div>
+    </div>
+    <div class="course-card">
+      <div class="course-number">Course II</div>
+      <h3>Mathematics of Computer Science</h3>
+      <p>The mathematical toolkit for computer science &mdash; discrete structures, combinatorics, graph theory, number theory, and formal proof.</p>
+      <div class="course-topics">
+        <span class="course-topic">Discrete Maths</span>
+        <span class="course-topic">Graph Theory</span>
+        <span class="course-topic">Combinatorics</span>
+        <span class="course-topic">Number Theory</span>
+        <span class="course-topic">Formal Proofs</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Software ── -->
+<section id="software">
+  <div class="reveal">
+    <div class="section-label">03 &mdash; Software</div>
+    <h2 class="section-title">What I build.</h2>
+    <div class="divider"></div>
+  </div>
+
+  <!-- BrewKit showcase -->
+  <div class="showcase reveal">
+    <div class="showcase-text">
+      <div class="subtitle">Featured Project</div>
+      <h3>BrewKit</h3>
+      <p>
+        A science-first beer brewing application. Every calculation is grounded in the chemistry and physics of brewing &mdash; not rules of thumb.
+      </p>
+      <p>
+        Beyond recipe building, BrewKit integrates water treatment calculators, mash chemistry, and outcome prediction: what efficiency, attenuation, and flavour profile to expect given your water, grain bill, and process.
+      </p>
+      <ul class="feature-list">
+        <li>Recipe builder with real-time predictions</li>
+        <li>Water treatment &amp; mineral adjustment</li>
+        <li>Mash pH and efficiency modelling</li>
+        <li>Outcome prediction based on process parameters</li>
+        <li>Lautering, boil-off, and fermentation calculators</li>
+      </ul>
+    </div>
+    <div class="showcase-visual">
+      <div class="mock-window">
+        <div class="mock-titlebar">
+          <div class="mock-dot"></div>
+          <div class="mock-dot"></div>
+          <div class="mock-dot"></div>
+        </div>
+        <div class="mock-body">
+          <div><span class="line-comment">// recipe: West Coast IPA</span></div>
+          <div><span class="line-label">og:</span> <span class="line-value">1.065</span></div>
+          <div><span class="line-label">fg:</span> <span class="line-value">1.010</span></div>
+          <div><span class="line-label">ibu:</span> <span class="line-value">62</span></div>
+          <div><span class="line-label">srm:</span> <span class="line-value">7.2</span></div>
+          <div><span class="line-label">abv:</span> <span class="line-value">7.2%</span></div>
+          <div style="margin-top:0.8rem"><span class="line-comment">// water profile</span></div>
+          <div><span class="line-label">ca:</span> <span class="line-value">110 ppm</span> <span class="line-label">so4:</span> <span class="line-value">275 ppm</span></div>
+          <div><span class="line-label">cl:</span> <span class="line-value">50 ppm</span>  <span class="line-label">ratio:</span> <span class="line-value">5.5 (bitter)</span></div>
+          <div style="margin-top:0.8rem"><span class="line-comment">// predicted mash</span></div>
+          <div><span class="line-label">pH:</span> <span class="line-value">5.38</span></div>
+          <div><span class="line-label">efficiency:</span> <span class="line-value">74.2%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Web dev services -->
+  <div class="reveal" style="margin-top: 4rem;">
+    <div class="cards-grid">
+      <div class="card">
+        <span class="card-icon">&#123;&#125;</span>
+        <h3>Web Development</h3>
+        <p>Clean, modern websites built to your specification. From single-page sites to full web applications.</p>
+        <div class="tag-row">
+          <span class="tag">HTML / CSS / JS</span>
+          <span class="tag">React</span>
+          <span class="tag">Responsive</span>
+        </div>
+      </div>
+      <div class="card">
+        <span class="card-icon">&#9881;</span>
+        <h3>App Development</h3>
+        <p>Custom applications with carefully designed logic and interfaces. Particularly strong with data-driven and calculation-heavy tools.</p>
+        <div class="tag-row">
+          <span class="tag">Full-stack</span>
+          <span class="tag">APIs</span>
+          <span class="tag">Data tools</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Brewing ── -->
+<section id="brewing">
+  <div class="reveal">
+    <div class="section-label">04 &mdash; Brewing</div>
+    <h2 class="section-title">Custom beer.</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="brewing-content reveal">
+    <div class="brewing-text">
+      <p>
+        I brew beer to specification in the <strong>Cambridge, UK area</strong>. Whether you have a particular style in mind or want something designed from scratch, I approach every batch with the same scientific rigour I bring to everything else.
+      </p>
+      <p>
+        Water chemistry, mash profiles, fermentation control &mdash; every variable is measured and managed to produce exactly what you're after.
+      </p>
+    </div>
+    <div class="brewing-details">
+      <div class="brewing-detail-card">
+        <h4>Brew to spec</h4>
+        <p>Tell me what you want &mdash; style, strength, bitterness, flavour profile &mdash; and I'll design and brew it.</p>
+      </div>
+      <div class="brewing-detail-card">
+        <h4>Any style</h4>
+        <p>IPAs, lagers, stouts, Belgian ales, sours, and everything in between.</p>
+      </div>
+      <div class="brewing-detail-card">
+        <h4>Cambridge area</h4>
+        <p>Collection or local delivery in the Cambridge, UK area.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ── -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-label">05 &mdash; Contact</div>
+    <h2 class="section-title">Get in touch.</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="contact-inner reveal">
+    <div class="contact-text">
+      <p>
+        Whether you're looking for tuition, want a website built, or fancy some custom beer &mdash; drop me a message.
+      </p>
+      <div class="contact-detail">
+        <div class="icon">&#9993;</div>
+        <div class="info">
+          <strong>Email</strong>
+          your.email@example.com
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="icon">&#9678;</div>
+        <div class="info">
+          <strong>Location</strong>
+          Cambridge, UK &amp; Online
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="icon">&#9719;</div>
+        <div class="info">
+          <strong>Availability</strong>
+          Mon &ndash; Sat, flexible hours
+        </div>
+      </div>
+    </div>
+    <div class="contact-form" id="contactForm">
+      <input type="text" placeholder="Your name" required>
+      <input type="email" placeholder="Your email" required>
+      <select>
+        <option value="" disabled selected>What is this about?</option>
+        <option value="tutoring">Tutoring</option>
+        <option value="courses">Courses</option>
+        <option value="webdev">Web / App Development</option>
+        <option value="brewing">Custom Beer</option>
+        <option value="other">Something else</option>
+      </select>
+      <textarea placeholder="Message"></textarea>
+      <button class="btn btn-primary" type="button" onclick="handleSubmit()">Send Message</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Daniel Raggi</p>
+</footer>
 
 <script>
   // ── Theme toggle ──
   function toggleTheme() {
     const html = document.documentElement;
-    const current = html.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : 'dark';
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     html.setAttribute('data-theme', next);
     try { localStorage.setItem('theme', next); } catch(e) {}
   }
 
-  // Restore saved preference (default stays dark if none saved)
   try {
     const saved = localStorage.getItem('theme');
     if (saved) document.documentElement.setAttribute('data-theme', saved);
@@ -1156,40 +1382,16 @@
       if (input.hasAttribute('required') && !input.value.trim()) {
         filled = false;
         input.style.borderColor = '#c4956a';
+      } else {
+        input.style.borderColor = '';
       }
     });
     if (filled) {
       alert('Thanks for your message! I\'ll get back to you soon.');
       inputs.forEach(input => { input.value = ''; input.style.borderColor = ''; });
+      form.querySelector('select').selectedIndex = 0;
     }
   }
-
-  // ── Hidden pages ──
-  function showPage(pageId) {
-    document.getElementById('mainContent').classList.add('hidden');
-    document.querySelectorAll('.hidden-page').forEach(p => p.classList.remove('active'));
-    const page = document.getElementById('page-' + pageId);
-    if (page) page.classList.add('active');
-    window.scrollTo(0, 0);
-  }
-
-  function showMain() {
-    document.querySelectorAll('.hidden-page').forEach(p => p.classList.remove('active'));
-    document.getElementById('mainContent').classList.remove('hidden');
-    window.scrollTo(0, 0);
-  }
-
-  function handleRoute() {
-    const hash = window.location.hash.replace('#', '');
-    if (['blog', 'apps', 'beer'].includes(hash)) {
-      showPage(hash);
-    } else {
-      showMain();
-    }
-  }
-
-  window.addEventListener('hashchange', handleRoute);
-  handleRoute();
 </script>
 </body>
 </html>
